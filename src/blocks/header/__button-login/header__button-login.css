@@ -1,0 +1,21 @@
+.header__button-login {
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 22px;
+	margin: 0;
+	align-self: center;
+	cursor: pointer;
+	transition: 0.5s ease;
+}
+
+.header__button-login:hover {
+	opacity: .6;
+}
+
+@media screen and (max-width: 500px) {
+	.header__button-login {
+		font-size: 14px;
+		line-height: 17px;
+		margin-right: 30px;
+	}
+}
