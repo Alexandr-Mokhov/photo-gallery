@@ -54,6 +54,12 @@
 @import url(./blocks/popup/__save/_type/popup__save_type_confirm.css);
 @import url(./blocks/popup/__image/popup__image.css);
 
+@import url(./blocks/form/form.css);
+@import url(./blocks/form/__title/form__title.css);
+@import url(./blocks/form/__input/form__input.css);
+@import url(./blocks/form/__button-submit/form__button-submit.css);
+@import url(./blocks/form/__link-login/form__link-login.css);
+
 /* * {
 outline: 1px red solid;
 } */

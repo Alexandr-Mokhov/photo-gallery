@@ -10,7 +10,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeleteCardPopup from './DeleteCardPopup';
-// import Register from './Register';
+import Register from './Register';
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -150,7 +150,7 @@ export default function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
-        {/* <Register /> */}
+        <Register />
         <Main
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
