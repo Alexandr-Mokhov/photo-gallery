@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useFormWithValidation } from "../utils/formValidator";
 
 
@@ -40,7 +41,7 @@ export default function AuthorizationPage({ name, titleText, buttonText, loggedI
         {validation.errors['input-password']}
 			</span>
 			<button className="form__button-submit">{buttonText}</button>
-			<h3 className="form__link-login">{`${name === 'login' ? '' : 'Уже зарегистрированы? Войти'}`}</h3>
+			<Link className="form__link-login" to="/sign-in" >{`${name === 'login' ? '' : 'Уже зарегистрированы? Войти'}`}</Link>
 		</form>
 	)
 }
