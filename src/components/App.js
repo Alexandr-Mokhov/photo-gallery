@@ -10,7 +10,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeleteCardPopup from './DeleteCardPopup';
-import Register from './Register';
+import AuthorizationPage from './AuthorizationPage';
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -150,7 +150,22 @@ export default function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Header />
-        <Register />
+        <AuthorizationPage
+          name="register"
+          titleText="Регистрация"
+          buttonText="Зарегистрироваться"
+          // loggedIn={loggedIn}
+          // onSubmit={onSubmit}
+          // onLogin={onLogin}
+        />
+        <AuthorizationPage
+          name="login"
+          titleText="Вход"
+          buttonText="Войти"
+          // loggedIn={loggedIn}
+          // onSubmit={onSubmit}
+          // onLogin={onLogin}
+        />
         <Main
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}

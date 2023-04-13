@@ -3,7 +3,7 @@ export default function PopupWithForm({ name, title, buttonText, isOpen, onClose
     <div className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}>
       <div className="popup__container popup__container_type_form">
         <button className="popup__close" type="button" onClick={onClose} />
-        <form className={`popup__form popup__form_type_${name}`} onSubmit={onSubmit} name={`${name}`} noValidate>
+        <form className={`popup__form popup__form_type_${name}`} onSubmit={onSubmit} name={name} noValidate>
           <h3 className="popup__title">{title}</h3>
           {children}
           <button
