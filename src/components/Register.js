@@ -48,7 +48,7 @@ export default function Register({ onClose, onAddPlace, isLoading }) {
         type="password"
         placeholder="Пароль"
         required
-				minLength="4"
+        minLength="4"
         value={validation.values['input-password'] || ''}
         onChange={validation.handleChange}
       />
