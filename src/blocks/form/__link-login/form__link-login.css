@@ -6,6 +6,7 @@
 	color: #FFF;
 	text-decoration: none;
 	transition: 0.5s ease;
+	text-align: center;
 }
 
 .form__link-login:hover {

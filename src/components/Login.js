@@ -20,7 +20,7 @@ export default function Login({ isOpen, onClose, onAddPlace, isLoading }) {
 
   return (
     <PopupWithForm
-      name="login-form"
+      name="form"
       title="Вход"
       buttonText="Войти"
       isOpen={isOpen}
@@ -31,7 +31,7 @@ export default function Login({ isOpen, onClose, onAddPlace, isLoading }) {
     >
       <input
         id="input-email"
-        className={`popup__input ${!validation.errors['input-email'] || 'popup__input_type_error'}`}
+        className={`form__input ${!validation.errors['input-email'] || 'popup__input_type_error'}`}
         name="input-email"
         type="email"
         placeholder="Email"
@@ -44,7 +44,7 @@ export default function Login({ isOpen, onClose, onAddPlace, isLoading }) {
       </span>
       <input
         id="input-password"
-        className={`popup__input ${!validation.errors['input-password'] || 'popup__input_type_error'}`}
+        className={`form__input ${!validation.errors['input-password'] || 'popup__input_type_error'}`}
         name="input-password"
         type="password"
         placeholder="Пароль"
