@@ -10,7 +10,8 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeleteCardPopup from './DeleteCardPopup';
-import AuthorizationPage from './AuthorizationPage';
+import Register from './Register';
+import Login from './Login';
 import { Route, Routes, Link } from 'react-router-dom';
 
 export default function App() {
@@ -153,20 +154,17 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/sign-up" element={
-            <AuthorizationPage
-              name="register"
+            <Register
               titleText="Регистрация"
-              buttonText="Зарегистрироваться"
+              isOpen={true}
               // loggedIn={loggedIn}
               // onSubmit={onSubmit}
               // onLogin={onLogin}
             />
           } />
           <Route path="/sign-in" element={
-            <AuthorizationPage
-              name="login"
-              titleText="Вход"
-              buttonText="Войти"
+            <Login
+              isOpen={true}
               // loggedIn={loggedIn}
               // onSubmit={onSubmit}
               // onLogin={onLogin}
