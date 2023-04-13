@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import PopupWithForm from './PopupWithForm';
 import { useFormWithValidation } from '../utils/formValidator';
 
-export default function Register({ isOpen, onClose, onAddPlace, isLoading }) {
+export default function Register({ onClose, onAddPlace, isLoading }) {
   const validation = useFormWithValidation();
 
   function handleSubmit(evt) {
@@ -21,10 +20,9 @@ export default function Register({ isOpen, onClose, onAddPlace, isLoading }) {
 
   return (
     <PopupWithForm
-      name="register-form"
+      name="form"
       title="Регистрация"
       buttonText="Зарегистрироваться"
-      isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
@@ -32,7 +30,7 @@ export default function Register({ isOpen, onClose, onAddPlace, isLoading }) {
     >
       <input
         id="input-email"
-        className={`popup__input ${!validation.errors['input-email'] || 'popup__input_type_error'}`}
+        className={`form__input ${!validation.errors['input-email'] || 'popup__input_type_error'}`}
         name="input-email"
         type="email"
         placeholder="Email"
@@ -45,7 +43,7 @@ export default function Register({ isOpen, onClose, onAddPlace, isLoading }) {
       </span>
       <input
         id="input-password"
-        className={`popup__input ${!validation.errors['input-password'] || 'popup__input_type_error'}`}
+        className={`form__input ${!validation.errors['input-password'] || 'popup__input_type_error'}`}
         name="input-password"
         type="password"
         placeholder="Пароль"
@@ -57,9 +55,6 @@ export default function Register({ isOpen, onClose, onAddPlace, isLoading }) {
       <span className={`popup__input-error ${!validation.errors['input-password'] || 'popup__input-error_active'}`}>
         {validation.errors['input-password']}
       </span>
-
-			<Link className="form__link-login" to="/sign-in" >Уже зарегистрированы? Войти</Link>
-
     </PopupWithForm>
   )
 } 

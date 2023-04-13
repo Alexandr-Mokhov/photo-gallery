@@ -155,8 +155,6 @@ export default function App() {
         <Routes>
           <Route path="/sign-up" element={
             <Register
-              titleText="Регистрация"
-              isOpen={true}
               // loggedIn={loggedIn}
               // onSubmit={onSubmit}
               // onLogin={onLogin}
@@ -164,7 +162,6 @@ export default function App() {
           } />
           <Route path="/sign-in" element={
             <Login
-              isOpen={true}
               // loggedIn={loggedIn}
               // onSubmit={onSubmit}
               // onLogin={onLogin}

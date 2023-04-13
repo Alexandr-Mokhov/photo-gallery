@@ -1,8 +1,10 @@
-.form__title {
+.popup__title_type_form {
 	font-size: 24px;
 	font-weight: 900;
 	line-height: 29px;
 	margin: 60px 0 0;
+  color: #FFF;
+  text-align: center;
 }
 
 @media screen and (max-width: 500px) {
