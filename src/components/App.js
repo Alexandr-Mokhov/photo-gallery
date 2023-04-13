@@ -14,6 +14,7 @@ import Register from './Register';
 import Login from './Login';
 import { Route, Routes } from 'react-router-dom';
 import ProtectedRouteElement from './ProtectedRoute';
+import InfoTooltip from './InfoTooltip';
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -24,13 +25,15 @@ export default function App() {
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(true);
 
   useEffect(() => {
     if (!isEditProfilePopupOpen &&
       !isAddPlacePopupOpen &&
       !isEditAvatarPopupOpen &&
       !selectedCard.isOpen &&
-      !isDeleteCardPopupOpen) {
+      !isDeleteCardPopupOpen &&
+      !isInfoTooltipPopupOpen) {
       return
     }
 
@@ -89,6 +92,7 @@ export default function App() {
     setSelectedCard({ ...selectedCard, isOpen: false });
     setIsLoading(false);
     setIsDeleteCardPopupOpen(false);
+    setIsInfoTooltipPopupOpen(false);
   }
 
   function handleCardLike(card) {
@@ -218,6 +222,11 @@ export default function App() {
           onClose={closeAllPopups}
           cardName={selectedCard.cardData.name}
           cardLink={selectedCard.cardData.link}
+        />
+        <InfoTooltip
+          isOpen={isInfoTooltipPopupOpen}
+          onClose={closeAllPopups}
+          loggedIn={true}
         />
       </CurrentUserContext.Provider>
     </div>
