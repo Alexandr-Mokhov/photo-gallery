@@ -12,7 +12,8 @@ import AddPlacePopup from './AddPlacePopup';
 import DeleteCardPopup from './DeleteCardPopup';
 import Register from './Register';
 import Login from './Login';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import ProtectedRouteElement from './ProtectedRoute';
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -25,10 +26,10 @@ export default function App() {
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
 
   useEffect(() => {
-    if (!isEditProfilePopupOpen && 
-      !isAddPlacePopupOpen && 
-      !isEditAvatarPopupOpen && 
-      !selectedCard.isOpen && 
+    if (!isEditProfilePopupOpen &&
+      !isAddPlacePopupOpen &&
+      !isEditAvatarPopupOpen &&
+      !selectedCard.isOpen &&
       !isDeleteCardPopupOpen) {
       return
     }
@@ -148,6 +149,8 @@ export default function App() {
       .catch(err => console.log(err));
   }
 
+  const [loggedIn, setLoggedIn] = useState(true);
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -155,20 +158,21 @@ export default function App() {
         <Routes>
           <Route path="/sign-up" element={
             <Register
-              // loggedIn={loggedIn}
-              // onSubmit={onSubmit}
-              // onLogin={onLogin}
+            // loggedIn={loggedIn}
+            // onSubmit={onSubmit}
+            // onLogin={onLogin}
             />
           } />
           <Route path="/sign-in" element={
             <Login
-              // loggedIn={loggedIn}
-              // onSubmit={onSubmit}
-              // onLogin={onLogin}
+            // loggedIn={loggedIn}
+            // onSubmit={onSubmit}
+            // onLogin={onLogin}
             />
           } />
           <Route path="/" element={
-            <Main
+            <ProtectedRouteElement element={Main}
+              loggedIn={loggedIn}
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
               onEditAvatar={handleEditAvatarClick}
@@ -176,8 +180,8 @@ export default function App() {
               onCardLike={handleCardLike}
               cards={cards}
               onCardDelete={handleDeleteCardClick}
-            />
-          } />
+            />}
+          />
         </Routes>
         <Footer />
         <EditProfilePopup
