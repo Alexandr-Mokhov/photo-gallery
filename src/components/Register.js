@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import PopupWithForm from './PopupWithForm';
 // import { useFormWithValidation } from '../utils/formValidator';
 import { register } from '../utils/auth';
 
 export default function Register({ onClose, onAddPlace, isLoading }) {
+  const navigate = useNavigate();
   const [formValue, setFormValue] = useState({
     email: '',
     password: '',
@@ -23,11 +25,11 @@ export default function Register({ onClose, onAddPlace, isLoading }) {
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    register(formValue);
-    // onAddPlace({
-    //   namePlace: validation.values['register-form-name'],
-    //   linkPlace: validation.values['register-form-link'],
-    // })
+    register(formValue)
+      .then((res) => {
+        console.log(res);
+        navigate('/sign-in', { replace: true });
+      })
   }
 
   // useEffect(() => {
