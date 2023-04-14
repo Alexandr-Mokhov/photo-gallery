@@ -12,7 +12,7 @@ import AddPlacePopup from './AddPlacePopup';
 import DeleteCardPopup from './DeleteCardPopup';
 import Register from './Register';
 import Login from './Login';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import ProtectedRouteElement from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
 import { usersMe } from '../utils/auth';
@@ -28,6 +28,33 @@ export default function App() {
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
   const [formValue, setFormValue] = useState({ email: '', password: '' });
+  const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const [emailLogin, setEmailLogin] = useState({ email: '' });
+
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  const tokenCheck = () => {
+    if (localStorage.getItem('token')) {
+      const token = localStorage.getItem('token');
+
+      usersMe(token)
+        .then((res) => {
+          setEmailLogin(res.data.email);
+
+          if (res) {
+            setLoggedIn(true);
+            navigate('/', { replace: true });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          navigate('/signin', { replace: true });
+        })
+    }
+  }
 
   useEffect(() => {
     if (!isEditProfilePopupOpen &&
@@ -155,8 +182,6 @@ export default function App() {
       .catch(err => console.log(err));
   }
 
-  const [loggedIn, setLoggedIn] = useState(true);
-
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -166,9 +191,8 @@ export default function App() {
             <Register
               formValue={formValue}
               setFormValue={setFormValue}
-              // loggedIn={loggedIn}
-              // onSubmit={onSubmit}
-              // onLogin={onLogin}
+            // onSubmit={onSubmit}
+            // onLogin={onLogin}
             />
           } />
           <Route path="/sign-in" element={
@@ -176,8 +200,9 @@ export default function App() {
               formValue={formValue}
               setFormValue={setFormValue}
               // loggedIn={loggedIn}
-              // onSubmit={onSubmit}
-              // onLogin={onLogin}
+              setLoggedIn={setLoggedIn}
+            // onSubmit={onSubmit}
+            // onLogin={onLogin}
             />
           } />
           <Route path="/" element={

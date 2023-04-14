@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import PopupWithForm from './PopupWithForm';
 // import { useFormWithValidation } from '../utils/formValidator';
-import { login } from '../utils/auth';
+import { login, usersMe } from '../utils/auth';
 
-export default function Login({ onClose, isLoading, formValue, setFormValue }) {
+export default function Login({ onClose, isLoading, formValue, setFormValue, setLoggedIn }) {
   const navigate = useNavigate();
 
   function handleChange(evt) {
@@ -21,7 +21,11 @@ export default function Login({ onClose, isLoading, formValue, setFormValue }) {
 
     login(formValue)
       .then(() => {
-        navigate('/', { replace: true })
+        setFormValue({ email: '', password: '' })
+        navigate('/', { replace: true });
+        setLoggedIn(true);
+        // usersMe()
+        //   .then(res => console.log(res))
       })
   }
 

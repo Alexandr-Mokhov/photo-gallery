@@ -11,21 +11,19 @@ export const register = ({ email, password }) => {
     body: JSON.stringify({ email, password })
   })
     .then((response) => {
-      console.log(response, response.status);
+      // console.log(response, response.status);
       try {
         if (response.status === 200 || 201) {
           return response.json();
         }
       } catch (e) {
-        console.log(e);
         return (e)
       }
     })
-    .then((res) => {
-      // console.log(res);
-      return res;
+    .then((data) => {
+      return data;
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
 }
 
 export const login = ({ email, password }) => {
@@ -44,17 +42,26 @@ export const login = ({ email, password }) => {
     .catch(err => console.log(err))
 }
 
-export const usersMe = () => {
+export const usersMe = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
+      'Authorization': `Bearer ${token}`
     }
   })
-  .then(res => res.json())
-  .then((data) => {
-    console.log(data);
-  })
-  .catch(err => console.log(err))
+    .then((response) => {
+      // console.log(response, response.status);
+      try {
+        if (response.status === 200 || 201) {
+          return response.json();
+        }
+      } catch (e) {
+        return (e)
+      }
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch(err => console.log(err));
 }
