@@ -16,14 +16,11 @@ export default function Register({ onClose, isLoading, formValue, setFormValue }
     })
   }
 
-  // console.log(formValue);
-
   function handleSubmit(evt) {
     evt.preventDefault();
 
     register(formValue)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         navigate('/sign-in', { replace: true });
       })
   }

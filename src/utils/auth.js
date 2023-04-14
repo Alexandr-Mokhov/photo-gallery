@@ -22,14 +22,11 @@ export const register = ({ email, password }) => {
       }
     })
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       return res;
     })
     .catch(err => console.log(err))
 }
-
-// sasha86@yandex.com
-// 1234
 
 export const login = ({ email, password }) => {
   return fetch(`${BASE_URL}/signin`, {
@@ -42,20 +39,22 @@ export const login = ({ email, password }) => {
     .then(res => res.json())
     .then((data) => {
       localStorage.setItem('token', data.token);
-      console.log(data.token);
+      // console.log(data.token);
     })
     .catch(err => console.log(err))
 }
 
-
-// data: {
-// email: "sash86@yandex.ru",
-// _id: "64391b6ad4567c00131ebd2d"
-// }
-
-// 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDM5MWMxY2Q0NTY3YzAwMTMxZWJkMmYiLCJpYXQiOjE2ODE0Njc1MzB9.GJYqHlyNRwgzyiW71en3Ff7qIsxJst-4WjFCKmHrJkw'
-
-// data: {
-// email: "sasha86@yandex.ru",
-// _id: "64391c1cd4567c00131ebd2f"
-// }
+export const usersMe = () => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+  })
+  .then(res => res.json())
+  .then((data) => {
+    console.log(data);
+  })
+  .catch(err => console.log(err))
+}

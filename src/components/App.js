@@ -15,6 +15,7 @@ import Login from './Login';
 import { Route, Routes } from 'react-router-dom';
 import ProtectedRouteElement from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
+import { usersMe } from '../utils/auth';
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -26,11 +27,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
-  const [formValue, setFormValue] = useState({
-    email: '',
-    password: '',
-  });
-
+  const [formValue, setFormValue] = useState({ email: '', password: '' });
 
   useEffect(() => {
     if (!isEditProfilePopupOpen &&

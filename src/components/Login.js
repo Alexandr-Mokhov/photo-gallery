@@ -15,12 +15,12 @@ export default function Login({ onClose, isLoading, formValue, setFormValue }) {
       [name]: value
     })
   }
-  console.log(formValue);
 
   function handleSubmit(evt) {
     evt.preventDefault();
+
     login(formValue)
-      .then((res) => {
+      .then(() => {
         navigate('/', { replace: true })
       })
   }
