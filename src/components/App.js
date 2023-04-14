@@ -30,7 +30,7 @@ export default function App() {
   const [formValue, setFormValue] = useState({ email: '', password: '' });
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
-  const [emailLogin, setEmailLogin] = useState({ email: '' });
+  const [emailLogin, setEmailLogin] = useState('');
 
   useEffect(() => {
     tokenCheck();
@@ -185,7 +185,12 @@ export default function App() {
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-        <Header />
+        <Header 
+          emailLogin={emailLogin}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+          setEmailLogin={setEmailLogin}
+         />
         <Routes>
           <Route path="/sign-up" element={
             <Register
