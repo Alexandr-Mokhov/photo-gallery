@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 // import { useFormWithValidation } from '../utils/formValidator';
+import { register } from '../utils/auth';
 
 export default function Register({ onClose, onAddPlace, isLoading }) {
   const [formValue, setFormValue] = useState({
@@ -17,11 +18,12 @@ export default function Register({ onClose, onAddPlace, isLoading }) {
     })
   }
 
-  // console.log(formValue);
+  console.log(formValue);
 
   function handleSubmit(evt) {
     evt.preventDefault();
 
+    register(formValue);
     // onAddPlace({
     //   namePlace: validation.values['register-form-name'],
     //   linkPlace: validation.values['register-form-link'],
