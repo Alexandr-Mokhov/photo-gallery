@@ -4,12 +4,8 @@ import PopupWithForm from './PopupWithForm';
 // import { useFormWithValidation } from '../utils/formValidator';
 import { register } from '../utils/auth';
 
-export default function Register({ onClose, onAddPlace, isLoading }) {
+export default function Register({ onClose, isLoading, formValue, setFormValue }) {
   const navigate = useNavigate();
-  const [formValue, setFormValue] = useState({
-    email: '',
-    password: '',
-  });
 
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -20,7 +16,7 @@ export default function Register({ onClose, onAddPlace, isLoading }) {
     })
   }
 
-  console.log(formValue);
+  // console.log(formValue);
 
   function handleSubmit(evt) {
     evt.preventDefault();

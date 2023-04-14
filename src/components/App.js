@@ -26,6 +26,11 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+  const [formValue, setFormValue] = useState({
+    email: '',
+    password: '',
+  });
+
 
   useEffect(() => {
     if (!isEditProfilePopupOpen &&
@@ -162,16 +167,20 @@ export default function App() {
         <Routes>
           <Route path="/sign-up" element={
             <Register
-            // loggedIn={loggedIn}
-            // onSubmit={onSubmit}
-            // onLogin={onLogin}
+              formValue={formValue}
+              setFormValue={setFormValue}
+              // loggedIn={loggedIn}
+              // onSubmit={onSubmit}
+              // onLogin={onLogin}
             />
           } />
           <Route path="/sign-in" element={
             <Login
-            // loggedIn={loggedIn}
-            // onSubmit={onSubmit}
-            // onLogin={onLogin}
+              formValue={formValue}
+              setFormValue={setFormValue}
+              // loggedIn={loggedIn}
+              // onSubmit={onSubmit}
+              // onLogin={onLogin}
             />
           } />
           <Route path="/" element={
