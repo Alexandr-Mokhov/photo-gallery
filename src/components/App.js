@@ -31,6 +31,7 @@ export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
   const [emailLogin, setEmailLogin] = useState('');
+  const [headerButtonText, setHeaderButtonText] = useState('Выйти');
 
   useEffect(() => {
     tokenCheck();
@@ -42,16 +43,18 @@ export default function App() {
 
       usersMe(token)
         .then((res) => {
+          console.log(res);
           setEmailLogin(res.data.email);
 
-          if (res) {
+          if (res.data) {
             setLoggedIn(true);
             navigate('/', { replace: true });
+          } else {
+            return Promise.reject(`Ops, ошибочка: ${res.status}`);
           }
         })
         .catch((err) => {
           console.log(err);
-          navigate('/signin', { replace: true });
         })
     }
   }
@@ -185,29 +188,31 @@ export default function App() {
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-        <Header 
+        <Header
           emailLogin={emailLogin}
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
           setEmailLogin={setEmailLogin}
-         />
+          headerButtonText={headerButtonText}
+          setHeaderButtonText={setHeaderButtonText}
+        />
         <Routes>
           <Route path="/sign-up" element={
             <Register
               formValue={formValue}
               setFormValue={setFormValue}
-            // onSubmit={onSubmit}
-            // onLogin={onLogin}
+              setIsInfoTooltipPopupOpen={setIsInfoTooltipPopupOpen}
+              setLoggedIn={setLoggedIn}
             />
           } />
           <Route path="/sign-in" element={
             <Login
               formValue={formValue}
               setFormValue={setFormValue}
-              // loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
-            // onSubmit={onSubmit}
-            // onLogin={onLogin}
+              setIsInfoTooltipPopupOpen={setIsInfoTooltipPopupOpen}
+              setEmailLogin={setEmailLogin}
+              setHeaderButtonText={setHeaderButtonText}
             />
           } />
           <Route path="/" element={
@@ -262,7 +267,7 @@ export default function App() {
         <InfoTooltip
           isOpen={isInfoTooltipPopupOpen}
           onClose={closeAllPopups}
-          loggedIn={true}
+          loggedIn={loggedIn}
         />
       </CurrentUserContext.Provider>
     </div>

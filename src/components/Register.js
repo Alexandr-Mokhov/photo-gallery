@@ -1,10 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import PopupWithForm from './PopupWithForm';
 // import { useFormWithValidation } from '../utils/formValidator';
 import { register } from '../utils/auth';
 
-export default function Register({ onClose, isLoading, formValue, setFormValue }) {
+export default function Register({ 
+  isLoading, 
+  formValue, 
+  setFormValue, 
+  setIsInfoTooltipPopupOpen, 
+  setLoggedIn 
+}) {
   const navigate = useNavigate();
 
   function handleChange(evt) {
@@ -20,8 +26,19 @@ export default function Register({ onClose, isLoading, formValue, setFormValue }
     evt.preventDefault();
 
     register(formValue)
-      .then(() => {
-        navigate('/sign-in', { replace: true });
+      .then((res) => {
+        if (res.data) {
+          setLoggedIn(true);
+          navigate('/sign-in', { replace: true });
+          setIsInfoTooltipPopupOpen(true);
+        } else {
+          return Promise.reject(`Ops, ошибочка: ${res.status}`);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoggedIn(false);
+        setIsInfoTooltipPopupOpen(true);
       })
   }
 
@@ -34,7 +51,6 @@ export default function Register({ onClose, isLoading, formValue, setFormValue }
       name="form"
       title="Регистрация"
       buttonText="Зарегистрироваться"
-      onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
     // isDisabledButton={!validation.isValid}

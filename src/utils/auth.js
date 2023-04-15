@@ -1,5 +1,3 @@
-
-
 export const BASE_URL = 'https://auth.nomoreparties.co';
 
 export const register = ({ email, password }) => {
@@ -10,20 +8,13 @@ export const register = ({ email, password }) => {
     },
     body: JSON.stringify({ email, password })
   })
-    .then((response) => {
-      // console.log(response, response.status);
-      try {
-        if (response.status === 200 || 201) {
-          return response.json();
-        }
-      } catch (e) {
-        return (e)
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ops, ошибочка: ${res.status}`);
       }
     })
-    .then((data) => {
-      return data;
-    })
-    .catch(err => console.log(err));
 }
 
 export const login = ({ email, password }) => {
@@ -34,12 +25,13 @@ export const login = ({ email, password }) => {
     },
     body: JSON.stringify({ email, password })
   })
-    .then(res => res.json())
-    .then((data) => {
-      localStorage.setItem('token', data.token);
-      // console.log(data.token);
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ops, ошибочка: ${res.status}`);
+      }
     })
-    .catch(err => console.log(err))
 }
 
 export const usersMe = (token) => {
@@ -50,18 +42,11 @@ export const usersMe = (token) => {
       'Authorization': `Bearer ${token}`
     }
   })
-    .then((response) => {
-      // console.log(response, response.status);
-      try {
-        if (response.status === 200 || 201) {
-          return response.json();
-        }
-      } catch (e) {
-        return (e)
-      }
-    })
-    .then((data) => {
-      return data;
-    })
-    .catch(err => console.log(err));
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ops, ошибочка: ${res.status}`);
+    }
+  })
 }

@@ -1,38 +1,44 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Header({ emailLogin, loggedIn, setEmailLogin }) {
+export default function Header({ emailLogin, loggedIn, setLoggedIn, headerButtonText, setHeaderButtonText}) {
   const navigate = useNavigate();
+  const [isRegistered, setIsRegistered] = useState(false);
 
-  function handleButtonClick() {
-    localStorage.removeItem('token');
-    navigate('/sign-in', {replace: true});
-    setEmailLogin('');
+  function handleClick() {
+
+    if (loggedIn) {           // нормально ли в таком виде реализация
+      setLoggedIn(false);
+      localStorage.removeItem('token');
+      setHeaderButtonText('Регистрация');
+      navigate('/sign-in', { replace: true });
+      setIsRegistered(true);
+    } else {
+      if (isRegistered) {
+        navigate('/sign-up', { replace: true });
+        setHeaderButtonText('Войти');
+        setIsRegistered(false);
+      } else {
+        navigate('/sign-in', { replace: true });
+        setHeaderButtonText('Регистрация');
+        setIsRegistered(true);
+      }
+    }
   }
 
   return (
     <header className="header">
       <div className="header__logo" />
       <h2 className="header__email">
-        {emailLogin}
+        {loggedIn ? emailLogin : ''}
         <button
           className={`header__button ${loggedIn ? 'header__button_type_darkened' : ''}`}
-          onClick={handleButtonClick}
+          onClick={handleClick}
         >
-          {loggedIn ? 'Выйти' : 'Войти'}
+          {headerButtonText}
         </button>
       </h2>
     </header>
   );
 }
-
-
-{/* <h2 className="header__email">
-{emailLogin}
-<Link
-  className={`header__button-login ${loggedIn ? 'header__button-login_type_darkened' : ''}`}
-  to="/sign-in"
->
-  {loggedIn ? 'Выйти' : 'Войти'}
-</Link>
-</h2> */}
 

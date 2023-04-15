@@ -2,9 +2,17 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import PopupWithForm from './PopupWithForm';
 // import { useFormWithValidation } from '../utils/formValidator';
-import { login, usersMe } from '../utils/auth';
+import { login } from '../utils/auth';
 
-export default function Login({ onClose, isLoading, formValue, setFormValue, setLoggedIn }) {
+export default function Login({ 
+  isLoading, 
+  formValue, 
+  setFormValue, 
+  setLoggedIn, 
+  setIsInfoTooltipPopupOpen, 
+  setEmailLogin, 
+  setHeaderButtonText 
+}) {
   const navigate = useNavigate();
 
   function handleChange(evt) {
@@ -20,12 +28,21 @@ export default function Login({ onClose, isLoading, formValue, setFormValue, set
     evt.preventDefault();
 
     login(formValue)
-      .then(() => {
-        setFormValue({ email: '', password: '' })
-        navigate('/', { replace: true });
-        setLoggedIn(true);
-        // usersMe()
-        //   .then(res => console.log(res))
+      .then((res) => {
+        if (res.token) {
+          localStorage.setItem('token', res.token);
+          setLoggedIn(true);
+          setFormValue({ email: '', password: '' })
+          navigate('/', { replace: true });
+          setEmailLogin(formValue.email);
+          setHeaderButtonText('Выйти');
+        } else {
+          return Promise.reject(`Ops, ошибочка: ${res.status}`);
+        }
+      })
+      .catch((err) => {
+        setIsInfoTooltipPopupOpen(true);
+        console.log(err);
       })
   }
 
@@ -38,7 +55,6 @@ export default function Login({ onClose, isLoading, formValue, setFormValue, set
       name="form"
       title="Вход"
       buttonText="Войти"
-      onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
     // isDisabledButton={!validation.isValid}
