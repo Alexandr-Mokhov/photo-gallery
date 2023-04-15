@@ -4,12 +4,12 @@ import PopupWithForm from './PopupWithForm';
 // import { useFormWithValidation } from '../utils/formValidator';
 import { register } from '../utils/auth';
 
-export default function Register({ 
-  isLoading, 
-  formValue, 
-  setFormValue, 
-  setIsInfoTooltipPopupOpen, 
-  setLoggedIn 
+export default function Register({
+  isLoading,
+  formValue,
+  setFormValue,
+  setIsInfoTooltipPopupOpen,
+  setLoggedIn
 }) {
   const navigate = useNavigate();
 

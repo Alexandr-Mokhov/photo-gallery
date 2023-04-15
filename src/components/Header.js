@@ -1,29 +1,13 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 
-export default function Header({ emailLogin, loggedIn, setLoggedIn, headerButtonText, setHeaderButtonText}) {
+export default function Header({ emailLogin, loggedIn, setLoggedIn, setHeaderButtonText }) {
   const navigate = useNavigate();
-  const [isRegistered, setIsRegistered] = useState(false);
 
-  function handleClick() {
-
-    if (loggedIn) {           // нормально ли в таком виде реализация
-      setLoggedIn(false);
-      localStorage.removeItem('token');
-      setHeaderButtonText('Регистрация');
-      navigate('/sign-in', { replace: true });
-      setIsRegistered(true);
-    } else {
-      if (isRegistered) {
-        navigate('/sign-up', { replace: true });
-        setHeaderButtonText('Войти');
-        setIsRegistered(false);
-      } else {
-        navigate('/sign-in', { replace: true });
-        setHeaderButtonText('Регистрация');
-        setIsRegistered(true);
-      }
-    }
+  function handleClickOut() {
+    setLoggedIn(false);
+    localStorage.removeItem('token');
+    navigate('/sign-in', { replace: true });
   }
 
   return (
@@ -31,14 +15,12 @@ export default function Header({ emailLogin, loggedIn, setLoggedIn, headerButton
       <div className="header__logo" />
       <h2 className="header__email">
         {loggedIn ? emailLogin : ''}
-        <button
-          className={`header__button ${loggedIn ? 'header__button_type_darkened' : ''}`}
-          onClick={handleClick}
-        >
-          {headerButtonText}
-        </button>
+        <Routes>
+          <Route path="/" element={<Link onClick={handleClickOut} to="/sign-in" className={`header__link ${loggedIn ? 'header__link_type_darkened' : ''}`} >Выйти</Link>} />
+          <Route path="/sign-in" element={<Link to="/sign-up" className="header__link" >Регистрация</Link>} />
+          <Route path="/sign-up" element={<Link to="/sign-in" className="header__link" >Войти</Link>} />
+        </Routes>
       </h2>
     </header>
   );
 }
-
