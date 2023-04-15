@@ -31,7 +31,6 @@ export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
   const [emailLogin, setEmailLogin] = useState('');
-  const [headerButtonText, setHeaderButtonText] = useState('Выйти');
 
   useEffect(() => {
     tokenCheck();
@@ -43,7 +42,7 @@ export default function App() {
 
       usersMe(token)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           setEmailLogin(res.data.email);
 
           if (res.data) {
@@ -193,8 +192,6 @@ export default function App() {
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
           setEmailLogin={setEmailLogin}
-          headerButtonText={headerButtonText}
-          setHeaderButtonText={setHeaderButtonText}
         />
         <Routes>
           <Route path="/sign-up" element={
@@ -203,6 +200,7 @@ export default function App() {
               setFormValue={setFormValue}
               setIsInfoTooltipPopupOpen={setIsInfoTooltipPopupOpen}
               setLoggedIn={setLoggedIn}
+              setEmailLogin={setEmailLogin}
             />
           } />
           <Route path="/sign-in" element={
@@ -212,7 +210,6 @@ export default function App() {
               setLoggedIn={setLoggedIn}
               setIsInfoTooltipPopupOpen={setIsInfoTooltipPopupOpen}
               setEmailLogin={setEmailLogin}
-              setHeaderButtonText={setHeaderButtonText}
             />
           } />
           <Route path="/" element={

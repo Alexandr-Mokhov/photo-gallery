@@ -1,15 +1,15 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import PopupWithForm from './PopupWithForm';
 // import { useFormWithValidation } from '../utils/formValidator';
 import { register } from '../utils/auth';
 
-export default function Register({ 
-  isLoading, 
-  formValue, 
-  setFormValue, 
-  setIsInfoTooltipPopupOpen, 
-  setLoggedIn 
+export default function Register({
+  isLoading,
+  formValue,
+  setFormValue,
+  setIsInfoTooltipPopupOpen,
+  setLoggedIn,
+  setEmailLogin,
 }) {
   const navigate = useNavigate();
 
@@ -31,6 +31,8 @@ export default function Register({
           setLoggedIn(true);
           navigate('/sign-in', { replace: true });
           setIsInfoTooltipPopupOpen(true);
+          setFormValue({ email: '', password: '' });
+          setEmailLogin('');
         } else {
           return Promise.reject(`Ops, ошибочка: ${res.status}`);
         }
@@ -41,10 +43,6 @@ export default function Register({
         setIsInfoTooltipPopupOpen(true);
       })
   }
-
-  // useEffect(() => {
-  //   validation.resetForm();
-  // }, [isOpen])
 
   return (
     <PopupWithForm
@@ -60,7 +58,7 @@ export default function Register({
         className={`form__input ${/*!validation.errors['input-email'] || */'popup__input_type_error'}`}
         name="email"
         type="email"
-        placeholder="Email"
+        placeholder="E-mail"
         required
         value={formValue.email}
         onChange={handleChange}

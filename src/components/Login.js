@@ -1,17 +1,15 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import PopupWithForm from './PopupWithForm';
 // import { useFormWithValidation } from '../utils/formValidator';
 import { login } from '../utils/auth';
 
-export default function Login({ 
-  isLoading, 
-  formValue, 
-  setFormValue, 
-  setLoggedIn, 
-  setIsInfoTooltipPopupOpen, 
-  setEmailLogin, 
-  setHeaderButtonText 
+export default function Login({
+  isLoading,
+  formValue,
+  setFormValue,
+  setLoggedIn,
+  setIsInfoTooltipPopupOpen,
+  setEmailLogin,
 }) {
   const navigate = useNavigate();
 
@@ -35,7 +33,6 @@ export default function Login({
           setFormValue({ email: '', password: '' })
           navigate('/', { replace: true });
           setEmailLogin(formValue.email);
-          setHeaderButtonText('Выйти');
         } else {
           return Promise.reject(`Ops, ошибочка: ${res.status}`);
         }
@@ -45,10 +42,6 @@ export default function Login({
         console.log(err);
       })
   }
-
-  // useEffect(() => {
-  //   validation.resetForm();
-  // }, [isOpen])
 
   return (
     <PopupWithForm
@@ -64,10 +57,11 @@ export default function Login({
         className={`form__input ${/*!validation.errors['input-email'] || */'popup__input_type_error'}`}
         name="email"
         type="email"
-        placeholder="Email"
+        placeholder="E-mail"
         required
         value={formValue.email}
         onChange={handleChange}
+        autoComplete="off"
       />
       <span className={`popup__input-error ${/*!validation.errors['input-email'] || */'popup__input-error_active'}`}>
         {/* {validation.errors['input-email']} */}
@@ -82,6 +76,7 @@ export default function Login({
         minLength="4"
         value={formValue.password}
         onChange={handleChange}
+        autoComplete="off"
       />
       <span className={`popup__input-error ${/*!validation.errors['input-password'] || */'popup__input-error_active'}`}>
         {/* {validation.errors['input-password']} */}
