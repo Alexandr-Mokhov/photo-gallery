@@ -8,8 +8,8 @@ export default function Register({
   formValue,
   setFormValue,
   setIsInfoTooltipPopupOpen,
-  setLoggedIn,
   setEmailLogin,
+  setNotificationText
 }) {
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ export default function Register({
     register(formValue)
       .then((res) => {
         if (res.data) {
-          setLoggedIn(true);
+          setNotificationText('Вы успешно зарегистрировались!');
           navigate('/sign-in', { replace: true });
           setIsInfoTooltipPopupOpen(true);
           setFormValue({ email: '', password: '' });
@@ -39,7 +39,7 @@ export default function Register({
       })
       .catch((err) => {
         console.log(err);
-        setLoggedIn(false);
+        setNotificationText('Что-то пошло не так! Попробуйте ещё раз.');
         setIsInfoTooltipPopupOpen(true);
       })
   }

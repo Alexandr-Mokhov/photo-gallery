@@ -31,6 +31,7 @@ export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
   const [emailLogin, setEmailLogin] = useState('');
+  const [notificationText, setNotificationText] = useState('');
 
   useEffect(() => {
     tokenCheck();
@@ -191,7 +192,6 @@ export default function App() {
           emailLogin={emailLogin}
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
-          setEmailLogin={setEmailLogin}
         />
         <Routes>
           <Route path="/sign-up" element={
@@ -199,8 +199,8 @@ export default function App() {
               formValue={formValue}
               setFormValue={setFormValue}
               setIsInfoTooltipPopupOpen={setIsInfoTooltipPopupOpen}
-              setLoggedIn={setLoggedIn}
               setEmailLogin={setEmailLogin}
+              setNotificationText={setNotificationText}
             />
           } />
           <Route path="/sign-in" element={
@@ -210,6 +210,7 @@ export default function App() {
               setLoggedIn={setLoggedIn}
               setIsInfoTooltipPopupOpen={setIsInfoTooltipPopupOpen}
               setEmailLogin={setEmailLogin}
+              setNotificationText={setNotificationText}
             />
           } />
           <Route path="/" element={
@@ -264,7 +265,7 @@ export default function App() {
         <InfoTooltip
           isOpen={isInfoTooltipPopupOpen}
           onClose={closeAllPopups}
-          loggedIn={loggedIn}
+          notificationText={notificationText}
         />
       </CurrentUserContext.Provider>
     </div>

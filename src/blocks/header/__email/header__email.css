@@ -9,7 +9,16 @@
 
 @media screen and (max-width: 500px) {
   .header__email {
-    font-size: 14px;
-    line-height: 17px;
+    display: none;
   }
+}
+
+.header__email_active {
+  display: block;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  margin: 0 30px 0 0 ;
+  align-self: center;
+  color: #FFF;
 }

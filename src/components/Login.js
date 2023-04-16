@@ -10,6 +10,7 @@ export default function Login({
   setLoggedIn,
   setIsInfoTooltipPopupOpen,
   setEmailLogin,
+  setNotificationText
 }) {
   const navigate = useNavigate();
 
@@ -39,6 +40,8 @@ export default function Login({
       })
       .catch((err) => {
         setIsInfoTooltipPopupOpen(true);
+        setLoggedIn(false);
+        setNotificationText('Что-то пошло не так! Попробуйте ещё раз.')
         console.log(err);
       })
   }
