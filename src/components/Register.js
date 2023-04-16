@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
-import PopupWithForm from './PopupWithForm';
+import FormPage from './FormPage';
 // import { useFormWithValidation } from '../utils/formValidator'; // позже доделаю валидацию
-import { register } from '../utils/auth';
+import { registerUser } from '../utils/auth';
 
 export default function Register({
   isLoading,
@@ -25,12 +25,11 @@ export default function Register({
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    register(formValue)
+    registerUser(formValue)
       .then((res) => {
         if (res.data) {
           setNotificationText('Вы успешно зарегистрировались!');
           navigate('/sign-in', { replace: true });
-          setIsInfoTooltipPopupOpen(true);
           setFormValue({ email: '', password: '' });
           setEmailLogin('');
         } else {
@@ -39,13 +38,13 @@ export default function Register({
       })
       .catch((err) => {
         setNotificationText('Что-то пошло не так! Попробуйте ещё раз.');
-        setIsInfoTooltipPopupOpen(true);
         console.log(err + ` : Ошибка введенных данных`);
       })
+      .finally(() => setIsInfoTooltipPopupOpen(true))
   }
 
   return (
-    <PopupWithForm
+    <FormPage
       name="form"
       title="Регистрация"
       buttonText="Зарегистрироваться"
@@ -80,7 +79,7 @@ export default function Register({
       <span className={`popup__input-error ${/*!validation.errors['input-password'] || */'popup__input-error_active'}`}>
         {/* {validation.errors['input-password']} */}
       </span>
-    </PopupWithForm>
+    </FormPage>
   )
 }
 

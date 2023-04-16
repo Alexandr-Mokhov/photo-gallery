@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../utils/formValidator';
 
-export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, buttonText, isLoading }) {
+export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
   const validation = useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
 
@@ -28,7 +28,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, button
     <PopupWithForm
       name="profile"
       title="Редактировать профиль"
-      buttonText={buttonText}
+      buttonText={isLoading ? 'Сохранение...' : 'Сохранить'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

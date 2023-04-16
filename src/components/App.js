@@ -15,7 +15,7 @@ import Login from './Login';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import ProtectedRouteElement from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
-import { usersMe } from '../utils/auth';
+import { checkToken } from '../utils/auth';
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -32,60 +32,64 @@ export default function App() {
   const navigate = useNavigate();
   const [emailLogin, setEmailLogin] = useState('');
   const [notificationText, setNotificationText] = useState('');
+  const isOpen = isEditProfilePopupOpen ||
+    isAddPlacePopupOpen ||
+    isEditAvatarPopupOpen ||
+    selectedCard.isOpen ||
+    isDeleteCardPopupOpen ||
+    isInfoTooltipPopupOpen;
 
   useEffect(() => {
     tokenCheck();
   }, []);
 
   const tokenCheck = () => {
-    if (localStorage.getItem('token')) {
-      const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-      usersMe(token)
+    if (token) {
+      checkToken(token)
         .then((res) => {
-          // console.log(res);
           setEmailLogin(res.data.email);
 
           if (res.data) {
             setLoggedIn(true);
             navigate('/', { replace: true });
           } else {
-            return Promise.reject(res.status + ` : Ошибка с токеном`);
+            return Promise.reject(res.status);
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err + ` : Ошибка с токеном`);
         })
     }
   }
 
   useEffect(() => {
-    if (!isEditProfilePopupOpen &&
-      !isAddPlacePopupOpen &&
-      !isEditAvatarPopupOpen &&
-      !selectedCard.isOpen &&
-      !isDeleteCardPopupOpen &&
-      !isInfoTooltipPopupOpen) {
+    function closeByEscape(evt) {
+      if (evt.key === 'Escape') {
+        closeAllPopups();
+        evt.target.blur();
+      }
+    }
+    if (isOpen) {
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      }
+    }
+  }, [isOpen]);
+
+  useEffect(() => { // только не понял нужно ли объединить с слушателем Escape
+    if (!isOpen) {
       return
     }
-
     function handleClickOverlay(evt) {
       if (evt.target.className.indexOf('popup_opened') > 1) {
         closeAllPopups();
       }
     };
-
-    function handleClickEsc(evt) {
-      if (evt.key === 'Escape') {
-        closeAllPopups();
-      }
-    };
-
     document.addEventListener('mousedown', handleClickOverlay);
-    document.addEventListener('keydown', handleClickEsc);
-
     return () => {
-      document.removeEventListener('keydown', handleClickEsc);
       document.removeEventListener('mousedown', handleClickOverlay);
     };
   }, [closeAllPopups]);
@@ -231,27 +235,23 @@ export default function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
-          buttonText={isLoading ? 'Сохранение...' : 'Сохранить'}
           isLoading={isLoading}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
-          buttonText={isLoading ? 'Сохранение...' : 'Сохранить'}
           isLoading={isLoading}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
-          buttonText={isLoading ? 'Добавление...' : 'Добавить'}
           isLoading={isLoading}
         />
         <DeleteCardPopup
           isOpen={isDeleteCardPopupOpen}
           onClose={closeAllPopups}
-          buttonText={isLoading ? 'Удаление...' : 'Да'}
           isLoading={isLoading}
           onCardDelete={handleCardDelete}
         />

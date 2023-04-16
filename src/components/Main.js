@@ -34,12 +34,15 @@ export default function Main({
       <section className="elements">
         <ul className="elements__cards">
           {cards.map((itemCard, i) => {
-            return <Card
-              key={itemCard._id}
-              card={itemCard}
-              onCardClick={onCardClick}
-              onCardLike={onCardLike}
-              onCardDelete={onCardDelete} />
+            return ( // тоже часто пользуюсь SHIFT + ALT + F, почему то в этом случае не сработало
+              <Card
+                key={itemCard._id}
+                card={itemCard}
+                onCardClick={onCardClick}
+                onCardLike={onCardLike}
+                onCardDelete={onCardDelete}
+              />
+            )
           })}
         </ul>
       </section>

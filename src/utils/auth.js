@@ -1,6 +1,12 @@
+import checkResponse from './checkResponse';
+
 export const BASE_URL = 'https://auth.nomoreparties.co';
 
-export const register = ({ email, password }) => {
+// function request(url, options) {                    // на счет этой функции пока не разобрался
+//   return fetch(url, options).then(checkResponse)    // я так понял что это из разряда - "можно лучше"
+// }                                                   // постараюсь на днях разобраться как ее применить
+
+export const registerUser = ({ email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
@@ -8,16 +14,10 @@ export const register = ({ email, password }) => {
     },
     body: JSON.stringify({ email, password })
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-    })
+    .then(checkResponse);
 }
 
-export const login = ({ email, password }) => {
+export const authorizeUser = ({ email, password }) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
@@ -25,16 +25,10 @@ export const login = ({ email, password }) => {
     },
     body: JSON.stringify({ email, password })
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-    })
+    .then(checkResponse);
 }
 
-export const usersMe = (token) => {
+export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
@@ -42,11 +36,5 @@ export const usersMe = (token) => {
       'Authorization': `Bearer ${token}`
     }
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject(res.status);
-      }
-    })
+    .then(checkResponse);
 }

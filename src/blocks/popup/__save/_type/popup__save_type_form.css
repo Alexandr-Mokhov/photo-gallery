@@ -1,24 +1,13 @@
 .popup__save_type_form {
   width: 358px;
-  height: 50px;
   color: rgba(0, 0, 0, 1);
   background-color: #FFf;
   margin-top: 20vh;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: 0.5s ease;
-  padding: 0;
-}
-
-.popup__save_type_form:hover {
-  opacity: .6;
 }
 
 @media screen and (max-width: 500px) {
   .popup__save_type_form {
     width: 100%;
-    height: 46px;
-    margin-top: 20vh;
     font-size: 16px;
     line-height: 19px;
   }

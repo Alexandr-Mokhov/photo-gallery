@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
-import PopupWithForm from './PopupWithForm';
+import FormPage from './FormPage';
 // import { useFormWithValidation } from '../utils/formValidator'; // позже доделаю валидацию
-import { login } from '../utils/auth';
+import { authorizeUser } from '../utils/auth';
 
 export default function Login({
   isLoading,
@@ -26,7 +26,7 @@ export default function Login({
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    login(formValue)
+    authorizeUser(formValue)
       .then((res) => {
         if (res.token) {
           localStorage.setItem('token', res.token);
@@ -47,7 +47,7 @@ export default function Login({
   }
 
   return (
-    <PopupWithForm
+    <FormPage
       name="form"
       title="Вход"
       buttonText="Войти"
@@ -84,7 +84,7 @@ export default function Login({
       <span className={`popup__input-error ${/*!validation.errors['input-password'] || */'popup__input-error_active'}`}>
         {/* {validation.errors['input-password']} */}
       </span>
-    </PopupWithForm>
+    </FormPage>
   )
 }
 

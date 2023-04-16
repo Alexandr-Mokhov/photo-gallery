@@ -20,7 +20,7 @@ class Api {
     }
   }
 
-  getInitialCards() {
+  getInitialCards() {             // спасибо! обязательно позже сделаю универсальный код, пока просто хочу уложиться в дедлайн
     return fetch(`${this._url}/cards`, {
       headers: this._headers
     })

@@ -2,9 +2,11 @@ import { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 import { useFormWithValidation } from '../utils/formValidator';
 
-export default function AddPlacePopup({ isOpen, onClose, onAddPlace, buttonText, isLoading }) {
-  const validation = useFormWithValidation();
-
+export default function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
+  const validation = useFormWithValidation(); 
+  // спасибо! обязательно позже валидацию исправлю, пока просто хочу уложиться в дедлайн
+  // а вообще- то правильный подход реализации валидации в таком виде?
+  // думаю как можно прикрутить валидацию и к авторизации...
   function handleSubmit(evt) {
     evt.preventDefault();
 
@@ -22,7 +24,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace, buttonText,
     <PopupWithForm
       name="card"
       title="Новое место"
-      buttonText={buttonText}
+      buttonText={isLoading ? 'Добавление...' : 'Добавить'}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
