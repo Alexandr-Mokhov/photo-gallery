@@ -5,7 +5,7 @@ export default function Header({ emailLogin, loggedIn, setLoggedIn }) {
   const navigate = useNavigate();
   const [isOpenedMenu, setIsOpenedMenu] = useState(false);
 
-  function handleClickOut() {
+  function onSignOut() {
     setLoggedIn(false);
     localStorage.removeItem('token');
     navigate('/sign-in', { replace: true });
@@ -25,7 +25,7 @@ export default function Header({ emailLogin, loggedIn, setLoggedIn }) {
       <div className={`header__menu${isOpenedMenu && loggedIn ? '_opened' : ''}`}>
         <h2 className="header__menu-email">{loggedIn ? emailLogin : ''}</h2>
         <Routes>
-          <Route path="/" element={<Link onClick={handleClickOut} to="/sign-in" className={`header__link ${loggedIn ? 'header__link_type_darkened' : ''}`} >Выйти</Link>} />
+          <Route path="/" element={<Link onClick={onSignOut} to="/sign-in" className={`header__link ${loggedIn ? 'header__link_type_darkened' : ''}`} >Выйти</Link>} />
         </Routes>
       </div>
       <div className="header__container">
@@ -33,7 +33,7 @@ export default function Header({ emailLogin, loggedIn, setLoggedIn }) {
         <h2 className={`header__email ${loggedIn ? '' : 'header__email_active'}`}>
           {loggedIn ? emailLogin : ''}
           <Routes>
-            <Route path="/" element={<Link onClick={handleClickOut} to="/sign-in" className={`header__link ${loggedIn ? 'header__link_type_darkened' : ''}`} >Выйти</Link>} />
+            <Route path="/" element={<Link onClick={onSignOut} to="/sign-in" className={`header__link ${loggedIn ? 'header__link_type_darkened' : ''}`} >Выйти</Link>} />
             <Route path="/sign-in" element={<Link to="/sign-up" className="header__link" >Регистрация</Link>} />
             <Route path="/sign-up" element={<Link to="/sign-in" className="header__link" >Войти</Link>} />
           </Routes>

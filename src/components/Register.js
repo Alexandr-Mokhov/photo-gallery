@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import PopupWithForm from './PopupWithForm';
-// import { useFormWithValidation } from '../utils/formValidator';
+// import { useFormWithValidation } from '../utils/formValidator'; // позже доделаю валидацию
 import { register } from '../utils/auth';
 
 export default function Register({
