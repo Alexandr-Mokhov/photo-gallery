@@ -34,13 +34,13 @@ export default function Register({
           setFormValue({ email: '', password: '' });
           setEmailLogin('');
         } else {
-          return Promise.reject(`Ops, ошибочка: ${res.status}`);
+          return Promise.reject(res.status);
         }
       })
       .catch((err) => {
-        console.log(err);
         setNotificationText('Что-то пошло не так! Попробуйте ещё раз.');
         setIsInfoTooltipPopupOpen(true);
+        console.log(err + ` : Ошибка введенных данных`);
       })
   }
 

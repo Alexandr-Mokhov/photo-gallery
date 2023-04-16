@@ -12,7 +12,7 @@ export const register = ({ email, password }) => {
       if (res.ok) {
         return res.json();
       } else {
-        return Promise.reject(`Ops, ошибочка: ${res.status}`);
+        return Promise.reject(res.status);
       }
     })
 }
@@ -29,7 +29,7 @@ export const login = ({ email, password }) => {
       if (res.ok) {
         return res.json();
       } else {
-        return Promise.reject(`Ops, ошибочка: ${res.status}`);
+        return Promise.reject(res.status);
       }
     })
 }
@@ -42,11 +42,11 @@ export const usersMe = (token) => {
       'Authorization': `Bearer ${token}`
     }
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Ops, ошибочка: ${res.status}`);
-    }
-  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(res.status);
+      }
+    })
 }

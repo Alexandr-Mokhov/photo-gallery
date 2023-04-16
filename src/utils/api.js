@@ -15,8 +15,9 @@ class Api {
   _handleResponse = (res) => {
     if (res.ok) {
       return res.json();
+    } else {
+      return Promise.reject(res.status);
     }
-    return Promise.reject(`Ops, ошибочка: ${res.status}`)
   }
 
   getInitialCards() {

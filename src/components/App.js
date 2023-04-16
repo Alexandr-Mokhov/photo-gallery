@@ -50,7 +50,7 @@ export default function App() {
             setLoggedIn(true);
             navigate('/', { replace: true });
           } else {
-            return Promise.reject(`Ops, ошибочка: ${res.status}`);
+            return Promise.reject(res.status + ` : Ошибка с токеном`);
           }
         })
         .catch((err) => {
@@ -93,7 +93,7 @@ export default function App() {
   useEffect(() => {
     api.getUserInfo()
       .then(userData => setCurrentUser(userData))
-      .catch(err => console.log(err));
+      .catch(err => console.log(err + ` : Ошибка получения данных пользователя`));
   }, []);
 
   function handleEditProfileClick() {
@@ -134,7 +134,7 @@ export default function App() {
       .then((newCard) => {
         setCards((state) => state.map((arrayItem) => arrayItem._id === card._id ? newCard : arrayItem));
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err + ` : Ошибка с лайками`));
   }
 
   function handleCardDelete() {
@@ -144,7 +144,7 @@ export default function App() {
         setCards((state) => state.filter(arrayItem => arrayItem._id !== selectedCard.cardData._id));
         closeAllPopups();
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err + ` : Ошибка удаления карточки`));
   }
 
   function handleUpdateUser(userData) {
@@ -154,7 +154,7 @@ export default function App() {
         setCurrentUser(res);
         closeAllPopups();
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err + ' : Ошибка изменения профиля'));
   }
 
   function handleUpdateAvatar(userData) {
@@ -164,7 +164,7 @@ export default function App() {
         setCurrentUser(res);
         closeAllPopups();
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err + ` : Ошибка изменения аватара`));
   }
 
   useEffect(() => {
@@ -172,7 +172,7 @@ export default function App() {
       .then((cardData) => {
         setCards(cardData);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err + ` : Ошибка загрузки карточек`));
   }, []);
 
   function handleAddPlaceSubmit(cardData) {
@@ -182,7 +182,7 @@ export default function App() {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err + ` : Ошибка загрузки новой карточки`));
   }
 
   return (

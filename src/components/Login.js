@@ -35,14 +35,14 @@ export default function Login({
           navigate('/', { replace: true });
           setEmailLogin(formValue.email);
         } else {
-          return Promise.reject(`Ops, ошибочка: ${res.status}`);
+          return Promise.reject(res.status);
         }
       })
       .catch((err) => {
         setIsInfoTooltipPopupOpen(true);
         setLoggedIn(false);
         setNotificationText('Что-то пошло не так! Попробуйте ещё раз.')
-        console.log(err);
+        console.log(err + ` : Ошибка введенных данных`);
       })
   }
 
