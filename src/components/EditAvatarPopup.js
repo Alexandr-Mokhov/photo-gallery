@@ -3,17 +3,17 @@ import PopupWithForm from './PopupWithForm';
 import { useFormWithValidation } from '../utils/formValidator'
 
 export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
-  const validation = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
   useEffect(() => {
-    validation.resetForm();
+    resetForm();
   }, [isOpen]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
 
     onUpdateAvatar({
-      avatar: validation.values['avatar-link'],
+      avatar: values['avatar-link'],
     });
   }
 
@@ -26,20 +26,20 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoa
       onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
-      isDisabledButton={!validation.isValid}
+      isDisabledButton={!isValid}
     >
       <input
         id="link-avatar-input"
-        className={`popup__input ${!validation.errors['avatar-link'] || 'popup__input_type_error'}`}
+        className={`popup__input ${!errors['avatar-link'] || 'popup__input_type_error'}`}
         name="avatar-link"
         type="url"
         placeholder="Ссылка на аватар"
         required
-        value={validation.values['avatar-link'] || ''}
-        onChange={validation.handleChange}
+        value={values['avatar-link'] || ''}
+        onChange={handleChange}
       />
-      <span className={`popup__input-error ${!validation.errors['avatar-link'] || 'popup__input-error_active'}`}>
-        {validation.errors['avatar-link']}
+      <span className={`popup__input-error ${!errors['avatar-link'] || 'popup__input-error_active'}`}>
+        {errors['avatar-link']}
       </span>
     </PopupWithForm>
   )

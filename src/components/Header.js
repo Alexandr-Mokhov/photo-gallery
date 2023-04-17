@@ -19,8 +19,7 @@ export default function Header({ emailLogin, loggedIn, setLoggedIn }) {
       setIsOpenedMenu(true);
     }
   }
-  // я думал что этот вариант не пройдет ревью, кажется что через чур запутал код
-  // и думал есть варианты компактнее, логичнее и проще это оформить, пришлось создавать много доп стилей
+
   return (
     <header className="header">
       <div className={`header__menu${isOpenedMenu && loggedIn ? '_opened' : ''}`}>

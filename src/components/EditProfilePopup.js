@@ -4,23 +4,23 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useFormWithValidation } from '../utils/formValidator';
 
 export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
-  const validation = useFormWithValidation();
+  const { values, handleChange, errors, isValid, setIsValid } = useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
-    validation.values['input-name'] = currentUser.name;
-    validation.values['input-profession'] = currentUser.about;
-    validation.setIsValid(true);
-    validation.errors['input-name'] = '';
-    validation.errors['input-profession'] = '';
+    values['input-name'] = currentUser.name;
+    values['input-profession'] = currentUser.about;
+    setIsValid(true);
+    errors['input-name'] = '';
+    errors['input-profession'] = '';
   }, [isOpen, currentUser]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
 
     onUpdateUser({
-      name: validation.values['input-name'],
-      about: validation.values['input-profession'],
+      name: values['input-name'],
+      about: values['input-profession'],
     });
   }
 
@@ -33,37 +33,37 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoad
       onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
-      isDisabledButton={!validation.isValid}
+      isDisabledButton={!isValid}
     >
       <input
         id="name-input"
-        className={`popup__input ${!validation.errors['input-name'] || 'popup__input_type_error'}`}
+        className={`popup__input ${!errors['input-name'] || 'popup__input_type_error'}`}
         name="input-name"
         type="text"
         placeholder="Ваше имя"
         required
         minLength="2"
         maxLength="40"
-        value={validation.values['input-name'] || ''}
-        onChange={validation.handleChange}
+        value={values['input-name'] || ''}
+        onChange={handleChange}
       />
-      <span className={`popup__input-error ${!validation.errors['input-name'] || 'popup__input-error_active'}`}>
-        {validation.errors['input-name']}
+      <span className={`popup__input-error ${!errors['input-name'] || 'popup__input-error_active'}`}>
+        {errors['input-name']}
       </span>
       <input
         id="profession-input"
-        className={`popup__input ${!validation.errors['input-profession'] || 'popup__input_type_error'}`}
+        className={`popup__input ${!errors['input-profession'] || 'popup__input_type_error'}`}
         name="input-profession"
         type="text"
         placeholder="О себе"
         required
         minLength="2"
         maxLength="200"
-        value={validation.values['input-profession'] || ''}
-        onChange={validation.handleChange}
+        value={values['input-profession'] || ''}
+        onChange={handleChange}
       />
-      <span className={`popup__input-error ${!validation.errors['input-profession'] || 'popup__input-error_active'}`}>
-        {validation.errors['input-profession']}
+      <span className={`popup__input-error ${!errors['input-profession'] || 'popup__input-error_active'}`}>
+        {errors['input-profession']}
       </span>
     </PopupWithForm>
   )
