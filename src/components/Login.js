@@ -20,7 +20,7 @@ export default function Login({
     setFormValue({
       ...formValue,
       [name]: value
-    })
+    });
   }
 
   function handleSubmit(evt) {
@@ -43,7 +43,7 @@ export default function Login({
         setLoggedIn(false);
         setNotificationText('Что-то пошло не так! Попробуйте ещё раз.')
         console.log(err + ` : Ошибка введенных данных`);
-      })
+      });
   }
 
   return (

@@ -19,7 +19,7 @@ export default function Register({
     setFormValue({
       ...formValue,
       [name]: value
-    })
+    });
   }
 
   function handleSubmit(evt) {
@@ -40,7 +40,7 @@ export default function Register({
         setNotificationText('Что-то пошло не так! Попробуйте ещё раз.');
         console.log(err + ` : Ошибка введенных данных`);
       })
-      .finally(() => setIsInfoTooltipPopupOpen(true))
+      .finally(() => setIsInfoTooltipPopupOpen(true));
   }
 
   return (

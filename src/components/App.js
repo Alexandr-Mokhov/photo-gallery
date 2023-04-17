@@ -42,6 +42,12 @@ export default function App() {
     isDeleteCardPopupOpen ||
     isInfoTooltipPopupOpen;
 
+  function handleErrorMessage(message) {
+    closeAllPopups();
+    setIsInfoTooltipPopupOpen(true);
+    setNotificationText(message);
+  }
+
   useEffect(() => {
     tokenCheck();
   }, []);
@@ -63,7 +69,8 @@ export default function App() {
         })
         .catch((err) => {
           console.log(err + ` : Ошибка с токеном`);
-        })
+          handleErrorMessage('Сбой! Авторизация пользователя не произошла.');
+        });
     }
   }
 
@@ -82,7 +89,7 @@ export default function App() {
     }
   }, [isOpen]);
 
-  useEffect(() => { // только не понял нужно ли объединить с слушателем Escape
+  useEffect(() => {
     if (!isOpen) {
       return
     }
@@ -100,7 +107,10 @@ export default function App() {
   useEffect(() => {
     getUserInfo()
       .then(userData => setCurrentUser(userData))
-      .catch(err => console.log(err + ` : Ошибка получения данных пользователя`));
+      .catch((err) => {
+        console.log(err + ` : Ошибка получения данных пользователя`);
+        handleErrorMessage('Сбой! Не получены данные пользователя.');
+      });
   }, []);
 
   function handleEditProfileClick() {
@@ -141,7 +151,10 @@ export default function App() {
       .then((newCard) => {
         setCards((state) => state.map((arrayItem) => arrayItem._id === card._id ? newCard : arrayItem));
       })
-      .catch(err => console.log(err + ` : Ошибка с лайками`));
+      .catch((err) => {
+        console.log(err + ` : Ошибка с лайками`);
+        handleErrorMessage('Сбой! Запрос на лайк не сработал.');
+      });
   }
 
   function handleCardDelete() {
@@ -151,7 +164,10 @@ export default function App() {
         setCards((state) => state.filter(arrayItem => arrayItem._id !== selectedCard.cardData._id));
         closeAllPopups();
       })
-      .catch(err => console.log(err + ` : Ошибка удаления карточки`));
+      .catch((err) => {
+        console.log(err + ` : Ошибка удаления карточки`);
+        handleErrorMessage('Сбой! Запрос на удаление не сработал.');
+      });
   }
 
   function handleUpdateUser(userData) {
@@ -161,7 +177,10 @@ export default function App() {
         setCurrentUser(res);
         closeAllPopups();
       })
-      .catch(err => console.log(err + ' : Ошибка изменения профиля'));
+      .catch((err) => {
+        console.log(err + ` : Ошибка изменения профиля`);
+        handleErrorMessage('Ошибка! Введены некорректные данные или сбой сервера.')
+      });
   }
 
   function handleUpdateAvatar(userData) {
@@ -171,7 +190,10 @@ export default function App() {
         setCurrentUser(res);
         closeAllPopups();
       })
-      .catch(err => console.log(err + ` : Ошибка изменения аватара`));
+      .catch((err) => {
+        console.log(err + ` : Ошибка изменения аватара`);
+        handleErrorMessage('Ошибка! Введены некорректные данные или сбой сервера.');
+      });
   }
 
   useEffect(() => {
@@ -179,7 +201,10 @@ export default function App() {
       .then((cardData) => {
         setCards(cardData);
       })
-      .catch(err => console.log(err + ` : Ошибка загрузки карточек`));
+      .catch((err) => {
+        console.log(err + ` : Ошибка загрузки карточек`);
+        handleErrorMessage('Сбой! Карточки не загружены.');
+      });
   }, []);
 
   function handleAddPlaceSubmit(cardData) {
@@ -189,7 +214,10 @@ export default function App() {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
-      .catch(err => console.log(err + ` : Ошибка загрузки новой карточки`));
+      .catch((err) => {
+        console.log(err + ` : Ошибка загрузки новой карточки`);
+        handleErrorMessage('Ошибка! Введены некорректные данные или сбой сервера.')
+      })
   }
 
   return (
