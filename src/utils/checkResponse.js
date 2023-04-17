@@ -5,4 +5,3 @@ export default function checkResponse(res) {
     return Promise.reject(res.status);
   }
 }
-// отличная идея!!!

@@ -4,7 +4,10 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import ImagePopup from './ImagePopup';
-import api from '../utils/api';
+import {
+  getUserInfo, changeLikeCardStatus, deleteUserCard,
+  setUserInfo, setUserAvatar, getInitialCards, addNewCard
+} from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -44,10 +47,10 @@ export default function App() {
   }, []);
 
   const tokenCheck = () => {
-    const token = localStorage.getItem('token');
+    const jwt = localStorage.getItem('token');
 
-    if (token) {
-      checkToken(token)
+    if (jwt) {
+      checkToken(jwt)
         .then((res) => {
           setEmailLogin(res.data.email);
 
@@ -95,7 +98,7 @@ export default function App() {
   }, [closeAllPopups]);
 
   useEffect(() => {
-    api.getUserInfo()
+    getUserInfo()
       .then(userData => setCurrentUser(userData))
       .catch(err => console.log(err + ` : Ошибка получения данных пользователя`));
   }, []);
@@ -134,7 +137,7 @@ export default function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some(itemLike => itemLike._id === currentUser._id);
 
-    api.changeLikeCardStatus(card._id, !isLiked)
+    changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
         setCards((state) => state.map((arrayItem) => arrayItem._id === card._id ? newCard : arrayItem));
       })
@@ -143,7 +146,7 @@ export default function App() {
 
   function handleCardDelete() {
     setIsLoading(true);
-    api.deleteUserCard(selectedCard.cardData._id)
+    deleteUserCard(selectedCard.cardData._id)
       .then(() => {
         setCards((state) => state.filter(arrayItem => arrayItem._id !== selectedCard.cardData._id));
         closeAllPopups();
@@ -153,7 +156,7 @@ export default function App() {
 
   function handleUpdateUser(userData) {
     setIsLoading(true);
-    api.setUserInfo(userData.name, userData.about)
+    setUserInfo(userData.name, userData.about)
       .then((res) => {
         setCurrentUser(res);
         closeAllPopups();
@@ -163,7 +166,7 @@ export default function App() {
 
   function handleUpdateAvatar(userData) {
     setIsLoading(true);
-    api.setUserAvatar(userData.avatar)
+    setUserAvatar(userData.avatar)
       .then((res) => {
         setCurrentUser(res);
         closeAllPopups();
@@ -172,7 +175,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    api.getInitialCards()
+    getInitialCards()
       .then((cardData) => {
         setCards(cardData);
       })
@@ -181,7 +184,7 @@ export default function App() {
 
   function handleAddPlaceSubmit(cardData) {
     setIsLoading(true);
-    api.addNewCard(cardData.namePlace, cardData.linkPlace)
+    addNewCard(cardData.namePlace, cardData.linkPlace)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
