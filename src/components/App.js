@@ -232,6 +232,13 @@ export default function App() {
               onCardDelete={handleDeleteCardClick}
             />}
           />
+          <Route path="*" element={
+            <div className="page_type_not-found">
+              <h2>Page Not Found</h2>
+              <p>Такой страницы нет</p>
+            </div>
+          }
+          />
         </Routes>
         <Footer />
         <EditProfilePopup
