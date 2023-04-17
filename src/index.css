@@ -62,14 +62,15 @@
 @import url(./blocks/popup/__input-error/popup__input-error.css);
 @import url(./blocks/popup/__save/popup__save.css);
 @import url(./blocks/popup/__save/_type/popup__save_type_active.css);
-@import url(./blocks/popup/__save/_type/popup__save_type_inactive.css);
 @import url(./blocks/popup/__save/_type/popup__save_type_confirm.css);
 @import url(./blocks/popup/__save/_type/popup__save_type_form.css);
+@import url(./blocks/popup/__save/_type/popup__save_type_inactive.css);
 @import url(./blocks/popup/__image/popup__image.css);
 @import url(./blocks/popup/__image/_type/popup__image_type_ok.css);
 @import url(./blocks/popup/__image/_type/popup__image_type_err.css);
 
 @import url(./blocks/form/__input/form__input.css);
+@import url(./blocks/form/__input/_type/form__input_type_error.css);
 @import url(./blocks/form/__link-login/form__link-login.css);
 
 /* * {
