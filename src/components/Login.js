@@ -5,16 +5,18 @@ import { authorizeUser } from '../utils/auth';
 
 export default function Login({
   isLoading,
+  setIsLoading,
   setLoggedIn,
   setIsInfoTooltipPopupOpen,
   setEmailLogin,
   setNotificationText
 }) {
   const navigate = useNavigate();
-  const { values, handleChange, errors, isValid, resetForm, setIsValid } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    setIsLoading(true);
 
     authorizeUser({
       email: values['email'],
@@ -36,14 +38,15 @@ export default function Login({
         setLoggedIn(false);
         setNotificationText('Что-то пошло не так! Попробуйте ещё раз.')
         console.log(err + ` : Ошибка введенных данных`);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   return (
     <FormPage
       name="form"
       title="Вход"
-      buttonText="Войти"
+      buttonText={isLoading ? 'Вход...' : 'Войти'}
       onSubmit={handleSubmit}
       isLoading={isLoading}
       isDisabledButton={!isValid}

@@ -5,14 +5,16 @@ import { registerUser } from '../utils/auth';
 
 export default function Register({
   isLoading,
+  setIsLoading,
   setIsInfoTooltipPopupOpen,
   setNotificationText
 }) {
   const navigate = useNavigate();
-  const { values, handleChange, errors, isValid, resetForm, setIsValid } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    setIsLoading(true);
 
     registerUser({
       email: values['email'],
@@ -31,14 +33,17 @@ export default function Register({
         setNotificationText('Что-то пошло не так! Попробуйте ещё раз.');
         console.log(err + ` : Ошибка введенных данных`);
       })
-      .finally(() => setIsInfoTooltipPopupOpen(true));
+      .finally(() => {
+        setIsLoading(false);
+        setIsInfoTooltipPopupOpen(true)
+      });
   }
 
   return (
     <FormPage
       name="form"
       title="Регистрация"
-      buttonText="Зарегистрироваться"
+      buttonText={isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
       onSubmit={handleSubmit}
       isLoading={isLoading}
       isDisabledButton={!isValid}

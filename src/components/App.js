@@ -30,7 +30,6 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
-  const [formValue, setFormValue] = useState({ email: '', password: '' });
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
   const [emailLogin, setEmailLogin] = useState('');
@@ -231,17 +230,16 @@ export default function App() {
         <Routes>
           <Route path="/sign-up" element={
             <Register
-              formValue={formValue}
-              setFormValue={setFormValue}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
               setIsInfoTooltipPopupOpen={setIsInfoTooltipPopupOpen}
-              setEmailLogin={setEmailLogin}
               setNotificationText={setNotificationText}
             />
           } />
           <Route path="/sign-in" element={
             <Login
-              formValue={formValue}
-              setFormValue={setFormValue}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
               setLoggedIn={setLoggedIn}
               setIsInfoTooltipPopupOpen={setIsInfoTooltipPopupOpen}
               setEmailLogin={setEmailLogin}
