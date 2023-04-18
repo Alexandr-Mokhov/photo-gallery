@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom';
 
 export default function FormPage({ name, title, buttonText, onSubmit, isLoading, isDisabledButton, children }) {
 
-  // можно ли оставить стили элементов с классами как у попапов?
-  // или лучше сделать новые классы и положить в них такие же свойства?
   return (
     <div className={`popup popup_type_${name}`}>
       <div className={`popup__container popup__container_type_form`}>
@@ -16,9 +14,10 @@ export default function FormPage({ name, title, buttonText, onSubmit, isLoading,
           >
             {buttonText}
           </button>
-          {title === 'Регистрация' ? <Link className="form__link-login" to="/sign-in" >Уже зарегистрированы? Войти</Link> : ''}
+          {title === 'Регистрация' ? <Link className="form__link-login" to="/sign-in">Уже зарегистрированы? Войти</Link> : ''}
         </form>
       </div>
     </div>
   )
 }
+

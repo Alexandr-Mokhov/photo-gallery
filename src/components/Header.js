@@ -25,7 +25,7 @@ export default function Header({ emailLogin, loggedIn, setLoggedIn }) {
       <div className={`header__menu${isOpenedMenu && loggedIn ? '_opened' : ''}`}>
         <h2 className="header__menu-email">{loggedIn ? emailLogin : ''}</h2>
         <Routes>
-          <Route path="/" element={<Link onClick={onSignOut} to="/sign-in" className={`header__link ${loggedIn ? 'header__link_type_darkened' : ''}`} >Выйти</Link>} />
+          <Route path="/" element={<Link onClick={onSignOut} to="/sign-in" className={`header__link header__link_type_mobile ${loggedIn ? 'header__link_type_darkened' : ''}`} >Выйти</Link>} />
         </Routes>
       </div>
       <div className="header__container">

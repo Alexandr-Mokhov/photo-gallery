@@ -1,5 +1,14 @@
-export default function PopupWithForm({ name, title, buttonText, isOpen, onClose, onSubmit, isLoading, isDisabledButton, children }) {
-  return (   // спасибо! обязательно позже попробую кастомный хук, пока просто хочу уложиться в дедлайн
+export default function PopupWithForm({
+  name,
+  title,
+  buttonText,
+  isOpen,
+  onClose,
+  onSubmit,
+  isLoading,
+  isDisabledButton,
+  children }) {
+  return (
 
     <div className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}>
       <div className="popup__container popup__container_type_popup">
@@ -18,3 +27,4 @@ export default function PopupWithForm({ name, title, buttonText, isOpen, onClose
     </div>
   )
 }
+
