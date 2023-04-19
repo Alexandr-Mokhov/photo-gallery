@@ -58,7 +58,7 @@ export default function Login({
         type="email"
         placeholder="E-mail"
         required
-        value={values['email']}
+        value={values['email'] || ''}
         onChange={handleChange}
         autoComplete="off"
       />
@@ -73,7 +73,7 @@ export default function Login({
         placeholder="Пароль"
         required
         minLength="4"
-        value={values['password']}
+        value={values['password'] || ''}
         onChange={handleChange}
         autoComplete="off"
       />

@@ -148,9 +148,7 @@ export default function App() {
 
     changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) => {
-          state.map((arrayItem) => arrayItem._id === card._id ? newCard : arrayItem)
-        });
+        setCards((state) => state.map((arrayItem) => arrayItem._id === card._id ? newCard : arrayItem));
       })
       .catch((err) => {
         console.log(err + ` : Ошибка с лайками`);
@@ -162,9 +160,7 @@ export default function App() {
     setIsLoading(true);
     deleteUserCard(selectedCard.cardData._id)
       .then(() => {
-        setCards((state) => {
-          state.filter(arrayItem => arrayItem._id !== selectedCard.cardData._id)
-        });
+        setCards((state) => state.filter(arrayItem => arrayItem._id !== selectedCard.cardData._id));
         closeAllPopups();
       })
       .catch((err) => {
@@ -267,8 +263,7 @@ export default function App() {
               <h2>Page Not Found</h2>
               <p>Такой страницы нет</p>
             </div>
-          }
-          />
+          } />
         </Routes>
         <Footer />
         <EditProfilePopup
