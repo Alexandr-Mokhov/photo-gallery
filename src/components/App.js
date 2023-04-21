@@ -246,7 +246,7 @@ export default function App() {
               setNotificationText={setNotificationText}
             />
           } />
-          <Route path="/react-mesto-auth" element={
+          <Route path="/" element={
             <ProtectedRouteElement element={Main}
               loggedIn={loggedIn}
               onEditProfile={handleEditProfileClick}
