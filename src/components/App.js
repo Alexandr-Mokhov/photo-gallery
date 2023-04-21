@@ -246,7 +246,7 @@ export default function App() {
               setNotificationText={setNotificationText}
             />
           } />
-          <Route path="/" element={ //для коммита и пуша на гитхабе
+          <Route path="/" element={
             <ProtectedRouteElement element={Main}
               loggedIn={loggedIn}
               onEditProfile={handleEditProfileClick}
