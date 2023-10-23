@@ -1,5 +1,5 @@
 {
-  "name": "react-mesto-auth",
+  "name": "photo-gallery",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -46,5 +46,5 @@
   "overrides": {
     "@svgr/webpack": "$@svgr/webpack"
   },
-  "homepage": "https://alexandr-mokhov.github.io/react-mesto-auth/"
+  "homepage": "https://alexandr-mokhov.github.io/photo-gallery/"
 }
