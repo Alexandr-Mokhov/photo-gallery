@@ -3,4 +3,6 @@
     position: relative;
     opacity: 1;
     pointer-events: all;
+    background-color: #2A2C2F;
+    flex: 1;
   }

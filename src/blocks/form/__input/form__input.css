@@ -1,5 +1,4 @@
 .form__input {
-	background-color: rgba(0, 0, 0, 0);
 	color: #FFF;
 	width: 358px;
   height: 27px;
@@ -12,7 +11,7 @@
   border-bottom: 1px solid rgba(204, 204, 204, 1);
   padding: 0;
 	margin-top: 6px;
-  box-shadow:inset 0 0 0 1000px #000;
+  box-shadow:inset 0 0 0 1000px #2A2C2F;
   -webkit-text-fill-color: #FFF !important;
 }
 
